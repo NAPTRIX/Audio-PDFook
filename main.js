@@ -25,9 +25,8 @@ playButton.addEventListener('click', () => {
 
           const utterance = new SpeechSynthesisUtterance(pageText);
           window.speechSynthesis.speak(utterance);
-          typeWriter(utterance)
 
-          //outputArea.textContent = pageText;
+          outputArea.textContent = pageText;
         }).catch(console.error);
       }
 
