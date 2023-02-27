@@ -3,8 +3,17 @@ const playButton = document.getElementById('playButton');
 const outputArea = document.getElementById('outputArea');
 const voicePicker = document.getElementById('voicePicker');
 const pitchSlider = document.getElementById('pitchSlider');
-
+const speedSlider = document.getElementById('speedSlider')
 let voices = [];
+
+//voicePicker.addEventListener('change',()=> console.log(voicePicker.value))
+
+pitchSlider.addEventListener("change", ()=> document.getElementById('pitch').textContent = `Pitch: ${pitchSlider.value}` )
+
+
+speedSlider.addEventListener("change", function(){
+  document.getElementById("speed").textContent= `Speed: ${speedSlider.value}`
+})
 
 function typeWriter(element, text, speed) {
   let i = 0;
@@ -57,6 +66,7 @@ function playPDF() {
               pageText += item.str;
             }
             const utterance = new SpeechSynthesisUtterance(pageText);
+            utterance.rate = speedSlider.value;
             utterance.voice = voices[voicePicker.value];
             utterance.pitch = pitchSlider.value;
             window.speechSynthesis.speak(utterance);
