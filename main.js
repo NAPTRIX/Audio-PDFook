@@ -21,17 +21,22 @@ function typeWriter(element, text, speed) {
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
 
 function populateVoices() {
-  voices = speechSynthesis.getVoices();
-  voicePicker.innerHTML = '';
-  for (let i = 0; i < voices.length; i++) {
-    const option = document.createElement('option');
-    option.textContent = voices[i].name;
-    option.value = i;
-    voicePicker.appendChild(option);
-  }
-}
+  return new Promise((resolve, reject) => {
+    voices = speechSynthesis.getVoices();
+    if (voices.length !== 0) {
+       speechSynthesis.onvoiceschanged = () => {
+  populateVoices();
+};
 
-speechSynthesis.onvoiceschanged = populateVoices();
+      resolve();
+    } else {
+      speechSynthesis.onvoiceschanged = () => {
+        voices = speechSynthesis.getVoices();
+        resolve();
+      };
+    }
+  });
+}
 
 function playPDF() {
   const file = fileInput.files[0];
@@ -69,10 +74,17 @@ function playPDF() {
   reader.readAsArrayBuffer(file);
 }
 
-playButton.addEventListener("click", () => {
-  if (voices.length === 0) {
-    populateVoices();
+populateVoices().then(() => {
+  voicePicker.innerHTML = '';
+  for (let i = 0; i < voices.length; i++) {
+    const option = document.createElement('option');
+    option.textContent = voices[i].name;
+    option.value = i;
+    voicePicker.appendChild(option);
   }
+});
+
+playButton.addEventListener("click", () => {
   playPDF();
 });
 
