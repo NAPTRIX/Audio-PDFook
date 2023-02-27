@@ -82,7 +82,7 @@ a:link, i {
   padding-right: 20px;
 }
 #theme-button {
-  position: fixed;
+  position: static;
   bottom: 20px;
   right: 20px;
   background: none;
