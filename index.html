@@ -1,19 +1,19 @@
 
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>PDF Audiobook</title>
-</head>
-<body>
+    <title>PDF Audiobook Player</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
     <input type="file" id="fileInput">
     <button id="playButton">Play</button>
-    <input type="range" min="0.5" max="2" step="0.1" value="1" id="pitchSlider"> Pitch slider<br>
-<select id="voicePicker"></select>
-
+    <label for="pitchSlider">Pitch slider</label>
+    <input type="range" min="0.5" max="2" step="0.1" value="1" id="pitchSlider">
+    <select id="voicePicker"></select>
     <div id="outputArea"></div>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js"></script>
-<script src="main.js"></script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>
