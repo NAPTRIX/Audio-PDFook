@@ -22,7 +22,7 @@ body {
         font-size: 16px;
         cursor: pointer;
       }
-      #pitchSlider {
+      #pitchSlider , #speedSlider{
         display: block;
         margin: 20px auto;
         width: 50%;
@@ -50,7 +50,7 @@ body {
         white-space: pre-wrap;
         word-wrap: break-word;
       }
-      label[for="pitchSlider"] {
+      label {
         display: block;
         margin: 0 auto 10px;
         text-align: center;
