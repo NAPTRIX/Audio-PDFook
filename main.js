@@ -53,13 +53,13 @@ function playPDF() {
   reader.addEventListener("load", () => {
     pdfjsLib.getDocument(reader.result).promise.then(function (pdf) {
       const maxPages = pdf.numPages;
-      let currentPage = 1;
+      let currentPage = parseInt(document.getElementById('currentPage').value);
 
-      function processPage(pageNum) {
-        if (pageNum > maxPages) {
+      function processPage() {
+        if (currentPage > maxPages) {
           return;
         }
-        pdf.getPage(pageNum).then(function (page) {
+        pdf.getPage(currentPage).then(function (page) {
           page.getTextContent().then(function (textContent) {
             let pageText = "";
             for (const item of textContent.items) {
@@ -72,17 +72,19 @@ function playPDF() {
             window.speechSynthesis.speak(utterance);
             typeWriter(outputArea, pageText, 1);
             utterance.onend = function () {
-              processPage(pageNum + 1);
+              currentPage++;
+              processPage();
             };
           }).catch(console.error);
         });
       }
 
-      processPage(1);
+      processPage();
     });
   });
   reader.readAsArrayBuffer(file);
 }
+
 
 populateVoices().then(() => {
   voicePicker.innerHTML = '';
