@@ -81,3 +81,30 @@ a:link, i {
   padding-left: 20px;
   padding-right: 20px;
 }
+#theme-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#theme-icon {
+  display: inline-block;
+  font-size: 20px;
+  transition: color 0.5s;
+}
+
+#theme-icon.sun {
+  color: #FDB813;
+}
+
+#theme-button.dark #theme-icon {
+  color: #fff;
+}
+
+#theme-button.dark #theme-icon.moon {
+  color: #FDB813;
+}
