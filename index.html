@@ -8,8 +8,10 @@
   <body>
     <input type="file" id="fileInput">
     <button id="playButton">Play</button>
-    <label for="pitchSlider">Pitch slider</label>
+    <label id="pitch" for="pitchSlider">Pitch: 1</label>
     <input type="range" min="0.5" max="2" step="0.1" value="1" id="pitchSlider">
+    <label id="speed" for="speedSlider">Speed: 1 </label>
+        <input type="range" min="0.5" max="10" step="0.5" value="1" id="speedSlider">
     <select id="voicePicker"></select>
     <div id="outputArea"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
