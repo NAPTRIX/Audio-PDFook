@@ -4,13 +4,18 @@ const outputArea = document.getElementById('outputArea');
 const voicePicker = document.getElementById('voicePicker');
 const pitchSlider = document.getElementById('pitchSlider');
 const speedSlider = document.getElementById('speedSlider')
-const currentPG = document.getElementById('currentPG')
+const currentPG = document.getElementById('currentPage')
 let voices = [];
+
+function toggleTheme() {
+  const currentTheme = document.getElementById('theme').getAttribute('href');
+  const theme = currentTheme === 'style.css' ? 'dark-theme.css' : 'style.css';
+  document.getElementById('theme').setAttribute('href', theme);
+}
 
 voicePicker.addEventListener('change',()=> console.log(voicePicker.value))
 
 pitchSlider.addEventListener("change", ()=> document.getElementById('pitch').textContent = `Pitch: ${pitchSlider.value}` )
-
 
 speedSlider.addEventListener("change", function(){
   document.getElementById("speed").textContent= `Speed: ${speedSlider.value}`
@@ -48,14 +53,18 @@ function populateVoices() {
   });
 }
 
+playButton.disabled = true
+fileInput.addEventListener('change',()=> playButton.disabled = false)
+
 function playPDF() {
+  playButton.disabled = true
   const file = fileInput.files[0];
   const reader = new FileReader();
   reader.addEventListener("load", () => {
     pdfjsLib.getDocument(reader.result).promise.then(function (pdf) {
       const maxPages = pdf.numPages;
       let currentPage = parseInt(document.getElementById('currentPage').value);
-currentPG.textContent = `Current page: ${currentPage}`
+
       function processPage() {
         if (currentPage > maxPages) {
           return;
@@ -77,7 +86,7 @@ currentPG.textContent = `Current page: ${currentPage}`
               processPage();
             };
           }).catch(console.error);
-        });currentPG.textContent = `Current page: ${currentPage}`
+        });
       }
 
       processPage();
