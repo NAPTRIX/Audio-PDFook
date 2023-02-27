@@ -4,6 +4,7 @@ const outputArea = document.getElementById('outputArea');
 const voicePicker = document.getElementById('voicePicker');
 const pitchSlider = document.getElementById('pitchSlider');
 const speedSlider = document.getElementById('speedSlider')
+const currentPG = document.getElementById('currentPG')
 let voices = [];
 
 voicePicker.addEventListener('change',()=> console.log(voicePicker.value))
@@ -54,7 +55,7 @@ function playPDF() {
     pdfjsLib.getDocument(reader.result).promise.then(function (pdf) {
       const maxPages = pdf.numPages;
       let currentPage = parseInt(document.getElementById('currentPage').value);
-
+currentPG.textContent = `Current page: ${currentPage}`
       function processPage() {
         if (currentPage > maxPages) {
           return;
@@ -76,7 +77,7 @@ function playPDF() {
               processPage();
             };
           }).catch(console.error);
-        });
+        });currentPG.textContent = `Current page: ${currentPage}`
       }
 
       processPage();
