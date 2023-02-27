@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>PDF Audiobook Player</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" id="theme">
   </head>
   <body>
+    <button id="theme-button" onclick="toggleTheme()">Toggle theme
+  <span id="theme-icon" class="fas fa-sun"></span>
+</button>
+
     <input type="file" id="fileInput">
     <button id="playButton">Play</button>
     <label id="currentPG"for="currentPage">Current page:</label>
