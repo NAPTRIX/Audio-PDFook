@@ -6,7 +6,7 @@ const pitchSlider = document.getElementById('pitchSlider');
 const speedSlider = document.getElementById('speedSlider')
 let voices = [];
 
-//voicePicker.addEventListener('change',()=> console.log(voicePicker.value))
+voicePicker.addEventListener('change',()=> console.log(voicePicker.value))
 
 pitchSlider.addEventListener("change", ()=> document.getElementById('pitch').textContent = `Pitch: ${pitchSlider.value}` )
 
