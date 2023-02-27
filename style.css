@@ -1,3 +1,60 @@
 body {
-    font-size: 15pt;
-}
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+      }
+      #fileInput {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+        font-size: 16px;
+        color: #666;
+      }
+      #playButton {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #pitchSlider {
+        display: block;
+        margin: 20px auto;
+        width: 50%;
+      }
+      #voicePicker {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #fff;
+        font-size: 16px;
+        color: #666;
+      }
+      #outputArea {
+        display: block;
+        margin: 20px auto;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: #fff;
+        font-size: 16px;
+        color: #666;
+        text-align: center;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      label[for="pitchSlider"] {
+        display: block;
+        margin: 0 auto 10px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+      }
