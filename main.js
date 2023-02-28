@@ -7,26 +7,32 @@ const speedSlider = document.getElementById('speedSlider')
 const currentPG = document.getElementById('currentPage')
 let voices = [];
 
-/*if (localStorage.getItem("dark")){
-  const currentTheme = document.getElementById('theme').getAttribute('href');
-  const theme = currentTheme === 'style.css' ? 'dark-theme.css' : 'style.css';
-  document.getElementById('theme').setAttribute('href', 'dark-theme.css');
+function theme(){
+console.log("theme: ", localStorage.getItem("theme"), " light: ",localStorage.getItem("light"))
+  if  (localStorage.getItem("theme")==='light'){
+    document.getElementById('theme').setAttribute('href', 'style.css');
+    console.log("light")
+  }
+else if (localStorage.getItem("theme")=== 'dark'){
+   document.getElementById('theme').setAttribute('href', 'dark-theme.css');
+  console.log("dark")};
 }
-else {
-  const currentTheme = document.getElementById('theme').getAttribute('href');
-  document.getElementById('theme').setAttribute('href', 'style.css');}
-*/
-// Theme button
+theme()
+
+
 function toggleTheme() {
- 
   const currentTheme = document.getElementById('theme').getAttribute('href');
   const theme = currentTheme === 'style.css' ? 'dark-theme.css' : 'style.css';
-  currentTheme === 'dark-theme.css'?  localStorage.setItem("dark",true) :  localStorage.setItem("light",true);
-  
-  localStorage.getItem("dark")? localStorage.removeItem("light"): localStorage.removeItem("dark")
-  
+
+  if (theme === 'dark-theme.css') {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
+
   document.getElementById('theme').setAttribute('href', theme);
 }
+
 
 voicePicker.addEventListener('change',()=> console.log(voicePicker.value))
 
