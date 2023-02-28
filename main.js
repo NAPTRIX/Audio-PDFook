@@ -8,14 +8,12 @@ const currentPG = document.getElementById('currentPage')
 let voices = [];
 
 function theme(){
-console.log("theme: ", localStorage.getItem("theme"), " light: ",localStorage.getItem("light"))
   if  (localStorage.getItem("theme")==='light'){
     document.getElementById('theme').setAttribute('href', 'style.css');
-    console.log("light")
   }
 else if (localStorage.getItem("theme")=== 'dark'){
-   document.getElementById('theme').setAttribute('href', 'dark-theme.css');
-  console.log("dark")};
+   document.getElementById('theme').setAttribute('href', 'dark-theme.css')
+  }
 }
 theme()
 
