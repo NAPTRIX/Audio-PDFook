@@ -7,9 +7,24 @@ const speedSlider = document.getElementById('speedSlider')
 const currentPG = document.getElementById('currentPage')
 let voices = [];
 
-function toggleTheme() {
+/*if (localStorage.getItem("dark")){
   const currentTheme = document.getElementById('theme').getAttribute('href');
   const theme = currentTheme === 'style.css' ? 'dark-theme.css' : 'style.css';
+  document.getElementById('theme').setAttribute('href', 'dark-theme.css');
+}
+else {
+  const currentTheme = document.getElementById('theme').getAttribute('href');
+  document.getElementById('theme').setAttribute('href', 'style.css');}
+*/
+// Theme button
+function toggleTheme() {
+ 
+  const currentTheme = document.getElementById('theme').getAttribute('href');
+  const theme = currentTheme === 'style.css' ? 'dark-theme.css' : 'style.css';
+  currentTheme === 'dark-theme.css'?  localStorage.setItem("dark",true) :  localStorage.setItem("light",true);
+  
+  localStorage.getItem("dark")? localStorage.removeItem("light"): localStorage.removeItem("dark")
+  
   document.getElementById('theme').setAttribute('href', theme);
 }
 
@@ -33,7 +48,9 @@ function typeWriter(element, text, speed) {
   write();
 }
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
+//pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+
 
 function populateVoices() {
   return new Promise((resolve, reject) => {
