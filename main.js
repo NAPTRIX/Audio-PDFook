@@ -87,35 +87,34 @@ function playPDF() {
       let currentPage = parseInt(document.getElementById('currentPage').value);
 
       function processPage() {
-        if (currentPage > maxPages) {
-          return;
-        }
-        pdf.getPage(currentPage).then(function (page) {
-          page.getTextContent().then(function (textContent) {
-            let pageText = "";
-            for (const item of textContent.items) {
-              pageText += item.str;
-            }
-            const utterance = new SpeechSynthesisUtterance(pageText);
-            utterance.rate = speedSlider.value;
-            utterance.voice = voices[voicePicker.value];
-            utterance.pitch = pitchSlider.value;
-            window.speechSynthesis.speak(utterance);
-            typeWriter(outputArea, pageText, 1);
-            utterance.onend = function () {
-              currentPage++;
-              processPage();
-            };
-          }).catch(console.error);
-        });
+  if (currentPage > maxPages) {
+    return;
+  }
+  pdf.getPage(currentPage).then(function (page) {
+    page.getTextContent().then(function (textContent) {
+      let pageText = "";
+      for (const item of textContent.items) {
+        pageText += item.str;
       }
-
+      const utterance = new SpeechSynthesisUtterance(pageText);
+      utterance.rate = speedSlider.value;
+      utterance.voice = voices[voicePicker.value];
+      utterance.pitch = pitchSlider.value;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      typeWriter(outputArea, pageText, 1);
+      utterance.onend = function () {
+        currentPage++;
+        processPage();
+      };
+    }).catch(console.error);
+  });
+}
       processPage();
     });
   });
   reader.readAsArrayBuffer(file);
 }
-
 
 populateVoices().then(() => {
   voicePicker.innerHTML = '';
@@ -135,3 +134,4 @@ playButton.addEventListener("click", () => {
 pitchSlider.addEventListener('input', () => {
   pitch = pitchSlider.value;
 });
+
