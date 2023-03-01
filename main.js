@@ -17,6 +17,9 @@ else if (localStorage.getItem("theme")=== 'dark'){
 }
 theme()
 
+function pageCount(maxPages){
+  document.getElementById('currentPG').textContent = `Current page: ${currentPG.value}/${maxPages}` 
+}
 
 function toggleTheme() {
   const currentTheme = document.getElementById('theme').getAttribute('href');
@@ -78,43 +81,47 @@ playButton.disabled = true
 fileInput.addEventListener('change',()=> playButton.disabled = false)
 
 function playPDF() {
+  
   playButton.disabled = true
   const file = fileInput.files[0];
   const reader = new FileReader();
   reader.addEventListener("load", () => {
     pdfjsLib.getDocument(reader.result).promise.then(function (pdf) {
       const maxPages = pdf.numPages;
+      pageCount(maxPages)
       let currentPage = parseInt(document.getElementById('currentPage').value);
 
       function processPage() {
-  if (currentPage > maxPages) {
-    return;
-  }
-  pdf.getPage(currentPage).then(function (page) {
-    page.getTextContent().then(function (textContent) {
-      let pageText = "";
-      for (const item of textContent.items) {
-        pageText += item.str;
+        if (currentPage > maxPages) {
+          return;
+        }
+        pdf.getPage(currentPage).then(function (page) {
+          page.getTextContent().then(function (textContent) {
+            let pageText = "";
+            for (const item of textContent.items) {
+              pageText += item.str;
+            }
+            const utterance = new SpeechSynthesisUtterance(pageText);
+            utterance.rate = speedSlider.value;
+            utterance.voice = voices[voicePicker.value];
+            utterance.pitch = pitchSlider.value;
+            window.speechSynthesis.speak(utterance);
+            typeWriter(outputArea, pageText, 1);
+            utterance.onend = function () {
+              currentPage++;
+              pageCount();
+              processPage();
+            };
+          }).catch(console.error);
+        });
       }
-      const utterance = new SpeechSynthesisUtterance(pageText);
-      utterance.rate = speedSlider.value;
-      utterance.voice = voices[voicePicker.value];
-      utterance.pitch = pitchSlider.value;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-      typeWriter(outputArea, pageText, 1);
-      utterance.onend = function () {
-        currentPage++;
-        processPage();
-      };
-    }).catch(console.error);
-  });
-}
+
       processPage();
     });
   });
   reader.readAsArrayBuffer(file);
 }
+
 
 populateVoices().then(() => {
   voicePicker.innerHTML = '';
