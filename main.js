@@ -77,8 +77,11 @@ function populateVoices() {
   });
 }
 
-playButton.disabled = true
-fileInput.addEventListener('change',()=> playButton.disabled = false)
+playButton.disabled = true;
+currentPG.disabled = true;
+
+fileInput.addEventListener('change',()=>{ playButton.disabled = false;
+  currentPG.disabled = false })
 
 function playPDF() {
   
